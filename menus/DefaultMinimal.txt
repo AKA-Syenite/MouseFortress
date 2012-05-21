@@ -1,0 +1,9 @@
+Prospect|DFHack|a(prospect)
+Clean All|DFHack|a(clean all)
+Confiscate Junk|DFHack|a(cleanowned scattered)
+Vein Dig|DFHack|a(digvx)
+Stonesense|DFHack|a(stonesense)
+DFHack
+|
+Refresh Script||l
+Exit Script||s

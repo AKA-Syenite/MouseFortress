@@ -1,11 +1,10 @@
+#Persistent
 #SingleInstance force
 SetKeyDelay, 0, 5
 #IfWinActive ahk_class SDL_app
 SetTitleMatchMode, 2
 DetectHiddenWindows, On
 
-IniRead, sensitivity, config.ini, settings, sensitivity, 20
-IniRead, speed, config.ini, settings, speed, 100
 IniRead, menu, config.ini, keys, menu, RButton
 IniRead, base, config.ini, offsets, base
 IniRead, sidemenutypeoffset, config.ini, offsets, sidemenutype 
@@ -14,8 +13,10 @@ IniRead, keycount, config.ini, pass, keycount
 IniRead, pauseoffset, config.ini, offsets, pause
 IniRead, version, config.ini, settings, version
 IniRead, dfversion, config.ini, settings, dfversion
+IniRead, menus, config.ini, settings, menus
+IniRead, keys, config.ini, settings, keys
 
-Menu, tray, tip, Mouse Fortress v%version% for %dfversion%
+Menu, tray, tip, Mouse Fortress v%version% for %dfversion%`n%menus%: %menucount% menus loaded.`n%keys%: %keycount% keys loaded.
 
 activatemenus()
 activatekeys()
@@ -163,13 +164,28 @@ Loop, parse, flags, `,
 		}
 		SendInput, {Enter}	
 	}
+	if (flag = "lm")
+	{
+		throw := RegExMatch(full, "lm\(.*?\)", match)
+		match := RegExReplace(match, "lm\(|\)", "")
+		IniWrite, %match%, config.ini, settings, menus
+		Run launch.exe
+	}
+	if (flag = "lk")
+	{
+		throw := RegExMatch(full, "lk\(.*?\)", match)
+		match := RegExReplace(match, "lk\(|\)", "")
+		IniWrite, %match%, config.ini, settings, keys
+		Run launch.exe
+	}
 }
 }
 
 activatemenus()
 {
+global menus
 Traytip,, Activating Menus...
-Loop, Read, menus.txt
+Loop, Read, %A_ScriptDir%\menus\%menus%.txt
 {
 	Loop, parse, A_LoopReadLine,|
 	{
@@ -180,7 +196,7 @@ Loop, Read, menus.txt
 		}
 	}
 }
-Loop, Read, menus.txt
+Loop, Read, %A_ScriptDir%\menus\%menus%.txt
 {
 	multi := 0
 	parent := "context"
@@ -190,7 +206,7 @@ Loop, Read, menus.txt
 		{
 			name := A_Loopfield
 			menuname := RegExReplace(A_LoopField, "i)[^0-9a-z]", "")
-			Loop, Read, menus.txt
+			Loop, Read, %A_ScriptDir%\menus\%menus%.txt
 			{
 				Loop, parse, A_LoopReadLine,|
 				{
@@ -232,9 +248,10 @@ Traytip,, Menus Activated!
 
 activatekeys()
 {
+global keys
 count := 1
 Traytip,, Activating Keys...
-Loop, read, keys.txt
+Loop, read, %A_ScriptDir%\keys\%keys%.txt
 {
 	Loop, parse, A_LoopReadLine,|
 	{

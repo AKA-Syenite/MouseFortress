@@ -1,11 +1,14 @@
 ﻿FileDelete menus.ahk
 FileDelete keys.ahk
 
+IniRead, menus, config.ini, settings, menus
+IniRead, keys, config.ini, settings, keys
+
 count := 1
 menucount := 0
 
 TrayTip,, Building Menus...
-Loop, Read, menus.txt
+Loop, Read, %A_ScriptDir%\menus\%menus%.txt
 {
 	Loop, parse, A_LoopReadLine,|
 	{
@@ -16,7 +19,7 @@ Loop, Read, menus.txt
 		}
 	}
 }
-Loop, Read, menus.txt
+Loop, Read, %A_ScriptDir%\menus\%menus%.txt
 {
 	multi := 0
 	Loop, parse, A_LoopReadLine,|
@@ -25,7 +28,7 @@ Loop, Read, menus.txt
 		{
 			menucount++
 			menuname := RegExReplace(A_LoopField, "i)[^0-9a-z]", "")
-			Loop, Read, menus.txt
+			Loop, Read, %A_ScriptDir%\menus\%menus%.txt
 			{
 				Loop, parse, A_LoopReadLine,|
 				{
@@ -77,7 +80,7 @@ Traytip,, Menus Built!
 keycount := 0
 
 Traytip,, Building Keys...
-Loop, read, keys.txt
+Loop, read, %A_ScriptDir%\keys\%keys%.txt
 {
 	Loop, parse, A_LoopReadLine,|
 	{
