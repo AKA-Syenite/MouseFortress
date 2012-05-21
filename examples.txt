@@ -1,0 +1,198 @@
+Table of Contents
+-----------------
+Overview
+[m] - Opens the menu
+[pan] - Allows you to pan the camera around a central point on the screen
+[s] - Exits the script
+[l] - Reloads the script
+[p] - Either pauses, unpauses, or toggles between the two states
+[g] - Goes to the in-game menu specified
+[k] - Sends any keys specified
+[a] - Sends commands to DFHack and executes them
+[r] - Runs the specified program, or opens a file
+[q] - Toggles cursor tracking on or off
+[dc] - Continues only if the input was a double-press
+[d] - Allows you to drag the camera
+[ru] - Measures in-game distances (X/Y/Z). Can be in hold-mode or toggled
+[t] - Continues only if currently at "main" fortress mode menu (Somewhat deprecated)
+[e] - Returns to the main menu
+-----------------
+
+The general syntax for defining menus is like so:
+
+Name|Parent|Flag,Another Flag,Yet Another Flag
+
+With name being the displayed name of the menu, parent being the menu it's under (if any), if you'd like to
+define the menu as a topmost menu, simply leave the parent field blank. Flags are defined in the final field,
+and are comma-seperated. Note how each field is seperated by a |.
+
+The syntax for defining keys is like so:
+
+Key(s)|Flag,Another Flag,Yet Another Flag
+
+With key(s) being the hotkey or hotkey combination you want to use to activate the hotkey.
+
+http://www.autohotkey.com/docs/KeyList.htm and http://www.autohotkey.com/docs/Hotkeys.htm explain the different hotkey
+possibilities that you can use in the key field.
+
+Any options or additional parameters for a flag are defined in parenthesis () after the string, eg: p(g) or ru(h)
+You can define as many flags as you'd like, and they will execute in the order in which they appear.
+
+Modifiers are as follows:
++ - Shift
+^ - Control
+! - Alt
+# - Windows key
+& - Used to join two keys (For example Numpad0 & Numpad1)
+~ - Passes the original keystroke on to the sytem
+More can be found at the above addresses.
+
+Examples
+-----------------
+[flag] - Description
+
+Menu Examples & Explanations
+
+Key Examples & Explanations
+-----------------
+
+[m] - Opens the menu
+
+Open Menu||m
+Would add an option to open the menu, in the topmost menu. (Quite redundant)
+
+RButton|m
+Cause the right mouse button to open the menu
+
+---
+[pan] - Allows you to pan the camera around a central point on the screen
+
+Pan||pan
+Won't actually do anything, at the moment
+
+`|pan
+Lets you pan the screen as long as the grave(`) key is held
+
+---
+[s] - Exits the script
+
+Quit||s
+Self-Explanatory
+
+^!q|s
+Quits the script upon hitting Ctrl(^) + Alt(!) + q
+
+---
+[l] - Reloads the script
+Reloading recreates keys and menus, so make sure to reload every time you change any
+
+Refresh Script||l
+Self-Explanatory
+
+^r|l
+Reloads the script upon Ctrl + r
+
+---
+[p] - Either pauses, unpauses, or toggles between the two states
+Options: p - Pause, u - Unpause, g - Toggle
+
+Pause||p(p)
+Adds a topmost menu which always pauses, and never unpauses
+
++Space|p(g)
+Toggles pause status upon Shift + Space
+
+---
+[g] - Goes to the in-game menu specified
+Specify the key code of the menu in the parameters. An example would be g(bCw) for wall.
+
+Armor Stand|Furniture|g(ba)
+Creates a submenu of Furniture which goes to the ba menu (Armor stand)
+
+!k|g(k)
+Goes to the k menu (Look Around) upon Alt + k
+
+---
+[k] - Sends any keys specified
+Specify the key sequence in the parameters.
+
+Quick Save||k(^sQuicksave{Enter})
+Opens the snapshot box, enters Quicksave, and hits enter to save a snapshot
+
+^l|k(^l{Enter})
+Opens the snapshot load box, and hits enter to load the most recent snapshot
+
+---
+[a] - Sends commands to DFHack and executes them
+Specify the command in the parameters.
+
+Stonesense|DFHack|a(stonesense)
+Creates a submenu of DFHack which sends the stonesense command to DFHack
+
+!v|a(vdigx)
+Executes the vdigx command upon Alt + v
+
+---
+[r] - Runs the specified program, or opens a file
+Specify the path (relative to the script or absolute) in the parameters.
+
+Read Me||r(readme.txt)
+Creates a menu which opens this file in the script's directory
+
+^!t|r(C:\Stuff\Dwarf Therapist.exe)
+Runs C:\Stuff\Dwarf Therapist.exe upon Ctrl + Alt + t
+
+---
+[q] - Toggles cursor tracking on or off
+
+Toggle Tracking||q
+Adds a topmost menu which turns tracking on/off
+
+^q|q
+Toggles tracking upon Ctrl + q
+
+---
+[dc] - Continues only if the input was a double-press
+
+Example||dc,g(ba)
+Does nothing currently
+
+LButton|dc,k({Enter})
+Upon the double-press of the left mouse button, sends Enter
+
+---
+[d] - Allows you to drag the camera
+
+Drag||d
+Currently does nothing
+
+~MButton|d
+As long as you hold down the middle mouse button, you will drag the camera around
+
+---
+[ru] - Measures in-game distances (X/Y/Z). Can be in hold-mode or toggled
+Options: h - Active while key is held, t - Toggles on/off
+
+Measure||ru(t)
+Creates a topmost menu item which toggles measurement on/off
+
+NumpadAdd|ru(h)
+Measure for as long as Numpad Add is held
+
+---
+[t] - Continues only if currently at "main" fortress mode menu
+
+Quick Save||t,k(^sQuicksave{Enter})
+If at the main menu, opens the snapshot box, enters Quicksave, and hits enter to save a snapshot
+
+^l|t,k(^l{Enter})
+If at the main menu, opens the snapshot load box, and hits enter to load the most recent snapshot
+
+---
+[e] - Returns to the main menu
+
+Return||e
+Sends you back to the main menu
+
++Esc
+Also sends you back to the main menu
