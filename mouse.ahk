@@ -198,6 +198,12 @@ Loop, parse, flags, `,
 		IniWrite, %match%, config.ini, settings, keys
 		Run launch.exe
 	}
+	if (flag = "w")
+	{
+		throw := RegExMatch(full, "w\(.*?\)", match)
+		match := RegExReplace(match, "w\(|\)", "")
+		Sleep %match%
+	}
 }
 }
 
