@@ -4,8 +4,6 @@ SetKeyDelay, 0, 5
 SetTitleMatchMode, 2
 DetectHiddenWindows, On
 
-Menu, tray, tip, Mouse Fortress v1.3
-
 IniRead, sensitivity, config.ini, settings, sensitivity, 20
 IniRead, speed, config.ini, settings, speed, 100
 IniRead, menu, config.ini, keys, menu, RButton
@@ -14,6 +12,10 @@ IniRead, sidemenutypeoffset, config.ini, offsets, sidemenutype
 IniRead, menucount, config.ini, pass, menucount
 IniRead, keycount, config.ini, pass, keycount
 IniRead, pauseoffset, config.ini, offsets, pause
+IniRead, version, config.ini, settings, version
+IniRead, dfversion, config.ini, settings, dfversion
+
+Menu, tray, tip, Mouse Fortress v%version% for %dfversion%
 
 activatemenus()
 activatekeys()
