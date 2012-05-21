@@ -18,6 +18,26 @@ IniRead, keys, config.ini, settings, keys
 
 Menu, tray, tip, Mouse Fortress v%version% for %dfversion%`n%menus%: %menucount% menus loaded.`n%keys%: %keycount% keys loaded.
 
+Menu, tray, NoStandard
+
+Loop, %A_ScriptDir%\menus\*.txt
+{
+	StringTrimRight, menu, A_LoopFileName, 4
+	Menu, Menus, Add, %menu%, TrayMenuHandler
+}
+
+Loop, %A_ScriptDir%\keys\*.txt
+{
+	StringTrimRight, key, A_LoopFileName, 4
+	Menu, Keys, Add, %key%, TrayMenuHandler
+}
+
+Menu, tray, add, Menus, :Menus
+Menu, tray, add, Keys, :Keys
+Menu, tray, add
+Menu, tray, add, Refresh Script, TrayRefreshScript
+Menu, tray, add, Exit Script, TrayExitScript
+
 activatemenus()
 activatekeys()
 Run cursor.exe
@@ -286,6 +306,21 @@ return
 }
 
 Exit
+
+TrayMenuHandler:
+if (A_ThisMenu = "Menus")
+	flagexec("lm(" . A_ThisMenuItem . ")")
+if (A_ThisMenu = "Keys")
+	flagexec("lk(" . A_ThisMenuItem . ")")
+return
+
+TrayRefreshScript:
+flagexec("l")
+return
+
+TrayExitScript:
+flagexec("s")
+return
 
 #Include menus.ahk
 #Include keys.ahk
