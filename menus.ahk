@@ -563,3 +563,7 @@ ExitScript:
 flagexec("s")
 return
 
+ExitDwarfFortress:
+flagexec("a(die)")
+return
+

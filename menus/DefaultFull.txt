@@ -144,3 +144,4 @@ DFHack
 |
 Refresh Script||l
 Exit Script||s
+Exit Dwarf Fortress||a(die)
