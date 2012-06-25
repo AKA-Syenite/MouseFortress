@@ -1,6 +1,8 @@
 ﻿FileDelete menus.ahk
 FileDelete keys.ahk
 
+Menu, tray, Icon, %A_ScriptDir%\mouse.ico, 1
+
 IniRead, menus, config.ini, settings, menus
 IniRead, keys, config.ini, settings, keys
 

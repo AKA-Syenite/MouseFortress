@@ -17,6 +17,7 @@ IniRead, menus, config.ini, settings, menus
 IniRead, keys, config.ini, settings, keys
 
 Menu, tray, tip, Mouse Fortress v%version% for %dfversion%`n%menus%: %menucount% menus loaded.`n%keys%: %keycount% keys loaded.
+Menu, tray, Icon, %A_ScriptDir%\mouse.ico, 1
 
 Menu, tray, NoStandard
 

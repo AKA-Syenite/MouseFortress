@@ -9,7 +9,7 @@ Fell Trees|Designations|g(dt)
 Gather Plants|Designations|g(dp)
 Smooth|Carve|g(ds)
 Engrave|Carve|g(de)
-Carve Fort|Carve|g(da)
+Carve Fortifications|Carve|g(da)
 Carve|Designations
 Up|Stairs|g(du)
 Down|Stairs|g(dj)
