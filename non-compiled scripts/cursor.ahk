@@ -15,8 +15,12 @@ IniRead, constructioncursoroffset, config.ini, offsets, constructioncursor
 IniRead, cursoron, config.ini, pass, cursoron
 IniRead, fullmenuoffset, config.ini, offsets, fullmenu
 
+SetTimer, checkmouse, 1
+
 Loop
 {
+    if (moved = "0")
+        Continue
 	IfWinNotExist, mouse.ahk
 		ExitApp
 	if (WinActive("Dwarf Fortress") and WinActive("ahk_class SDL_app"))
@@ -34,6 +38,8 @@ Loop
 		fullmenu := ReadMemory(base+fullmenuoffset,"Dwarf Fortress")
 		mousex := ((mousex + windowx) - 1)
 		mousey := ((mousey + windowy) - 1)
+        if ((cursorx == mousex) and (cursory == mousey))
+            moved := 0
 		if ((cursorx > 4000000000) or ((sidemenutype = "16") and (constructioncursor > 4000000000)) or (fullmenu = "0") or (sidemenutype = "0"))
 		{
 			Sleep 5
@@ -90,3 +96,11 @@ else
 }
 return, result 
 }
+
+checkmouse:
+MouseGetPos, xaa, yaa
+Sleep 1
+MouseGetPos, xbb, ybb
+if ((xaa <> xbb) and (yaa <> ybb))
+    moved := 1
+Return
