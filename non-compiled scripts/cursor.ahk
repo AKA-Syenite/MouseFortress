@@ -2,6 +2,7 @@
 DetectHiddenWindows, On
 SetTitleMatchMode, 2
 #NoTrayIcon
+SetKeyDelay, 0
 
 IniRead, base, config.ini, offsets, base
 IniRead, cursorxoffset, config.ini, offsets, cursorx
@@ -47,35 +48,37 @@ Loop
 		}
 		if ((cursorx < 4000000000) and (mousex < 4000000000))
 		{
-			if ((mousex > (cursorx + 10)) and (mousey = cursory))
-				Send +{Right}
-			if ((mousex < (cursorx - 10)) and (mousey = cursory))
-				Send +{Left}
-			if ((mousey > (cursory + 10)) and (mousex = cursorx))
-				Send +{Down}
-			if ((mousey < (cursory - 10)) and (mousex = cursorx))
-				Send +{Up}
-			if ((mousex > cursorx) and (mousey = cursory))
-				Send {numpad6}
-			if ((mousex < cursorx) and (mousey = cursory))
-				Send {numpad4}
-			if ((mousey < cursory) and (mousex = cursorx))
-				Send {numpad8}
-			if ((mousey > cursory) and (mousex = cursorx))
-				Send {numpad2}
-			if ((mousex > cursorx) and (mousey < cursory))
-				Send {numpad9}
-			if ((mousex < cursorx) and (mousey < cursory))
-				Send {numpad7}
-			if ((mousex > cursorx) and (mousey > cursory))
-				Send {numpad3}
-			if ((mousex < cursorx) and (mousey > cursory))
-				Send {numpad1}
+			xdistance := (mousex - cursorx)
+            ydistance := (mousey - cursory)
+            if (xdistance >= 10)
+                Send +{Right}
+            if (ydistance >= 10)
+                Send +{Down}
+            if (xdistance <= -10)
+                Send +{Left}
+            if (ydistance <= -10)
+                Send +{Up}
+            if ((0 < xdistance && xdistance < 10) and (0 < ydistance && ydistance < 10))
+                Send {Numpad3}
+            if ((-10 < xdistance && xdistance < 0) and (0 < ydistance && ydistance < 10))
+                Send {Numpad1}
+            if ((-10 < xdistance && xdistance < 0) and (-10 < ydistance && ydistance < 0))
+                Send {Numpad7}
+            if ((0 < xdistance && xdistance < 10) and (-10 < ydistance && ydistance < 0))
+                Send {Numpad9}
+            if ((0 < xdistance && xdistance < 10) and (ydistance == 0))
+                Send {Right}
+            if ((0 < ydistance && ydistance < 10) and (xdistance == 0))
+                Send {Down}
+            if ((-10 < xdistance && xdistance < 0) and (ydistance == 0))
+                Send {Left}
+            if ((-10 < ydistance && ydistance < 0) and (xdistance == 0))
+                Send {Up}
 		}
 	}
 	else
 		Sleep 1000
-	Sleep 5
+	Sleep 1
 }
 
 ReadMemory(MADDRESS,PROGRAM)
