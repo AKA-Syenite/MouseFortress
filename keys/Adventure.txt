@@ -1,7 +1,7 @@
 RButton|m
 +Esc|e
-~MButton|d
-+~MButton|pan
+~MButton|pan
++~MButton|d
 +LButton|k({Enter})
 +RButton|k({Escape})
 Wheelup|k(>)
@@ -13,6 +13,4 @@ Wheeldown|k(<)
 !r|ru(t)
 !q|q
 ^r|l
-^v|a(digvx)
-^f|a(follow)
 ^+q|s

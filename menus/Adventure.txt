@@ -1,0 +1,36 @@
+Attack||g(A)
+Fire Weapon||g(f)
+Throw Item||g(t)
+|
+Stand||g(s)
+Sneak||g(S)
+Drop Item||g(d)
+Pick Up Item (Start Fire)||g(g)
+Perform Action (Crafting)||g(x)
+|
+Talk|Actions|g(k)
+Fast Travel|Actions|g(T)
+Interact (Buildings)|Actions|g(u)
+Search|Actions|g(L)
+Wear Item|Actions|g(w)
+Stow Item|Actions|g(p)
+Remove Item|Actions|g(r)
+Interact (Items)|Actions|g(I)
+Sleep|Actions|g(Z)
+Eat or Drink|Actions|g(e)
+Actions
+Look Around|Info|g(l)
+Announcements|Info|g(a)
+Status|Info|g(z)
+Inventory|Info|g(i)
+Date/Time|Info|g(D)
+Temperature|Info|g(P)
+Weather|Info|g(W)
+Combat Preferences|Info|g(C)
+Companions|Info|g(c)
+Quests|Info|g(Q)
+Info
+|
+Refresh Script||l
+Exit Script||s
+Exit Dwarf Fortress||a(die)

@@ -70,11 +70,3 @@ Key18:
 flagexec("s")
 return
 
-Key19:
-flagexec("g(z{Right}{Right}{Right}{Enter})")
-return
-
-Key20:
-flagexec("g(z{Enter})")
-return
-
