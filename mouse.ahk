@@ -205,6 +205,13 @@ Loop, parse, flags, `,
 		match := RegExReplace(match, "w\(|\)", "")
 		Sleep %match%
 	}
+    if (flag = "st")
+    {
+        if GetKeyState("LShift")
+            Send {Blind}{LShift Up}
+        else
+            Send {Blind}{LShift Down}
+    }
 }
 }
 
