@@ -169,3 +169,7 @@ Loads the designated key file.
 w()
 ===
 Waits the specified number of milliseconds.
+
+st
+==
+Toggle shift on or off.
