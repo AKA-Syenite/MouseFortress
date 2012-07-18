@@ -3,6 +3,7 @@ DetectHiddenWindows, On
 SetTitleMatchMode, 2
 #NoTrayIcon
 SetKeyDelay, 0
+#InstallMouseHook
 
 IniRead, base, config.ini, offsets, base
 IniRead, cursorxoffset, config.ini, offsets, cursorx
@@ -15,12 +16,19 @@ IniRead, sidemenutypeoffset, config.ini, offsets, sidemenutype
 IniRead, constructioncursoroffset, config.ini, offsets, constructioncursor
 IniRead, cursoron, config.ini, pass, cursoron
 IniRead, fullmenuoffset, config.ini, offsets, fullmenu
+IniRead, finecontrol, config.ini, settings, finecontrol
+IniRead, trackdelay, config.ini, settings, trackdelay
 
-SetTimer, checkmouse, 1
+if (trackdelay <= 0)
+    trackdelay := 1
 
 Loop
 {
-    if (moved = "0")
+    if (A_TimeIdlePhysical = "0")
+        moved := 1
+    if (CursorSynced() = "1")
+        moved := 0
+    if (moved = "0") and (finecontrol = "1")
         Continue
 	IfWinNotExist, mouse.ahk
 		ExitApp
@@ -78,7 +86,7 @@ Loop
 	}
 	else
 		Sleep 1000
-	Sleep 1
+	Sleep trackdelay
 }
 
 ReadMemory(MADDRESS,PROGRAM)
@@ -100,10 +108,16 @@ else
 return, result 
 }
 
-checkmouse:
-MouseGetPos, xaa, yaa
-Sleep 1
-MouseGetPos, xbb, ybb
-if ((xaa <> xbb) and (yaa <> ybb))
-    moved := 1
-Return
+CursorSynced()
+{
+    cursorx := ReadMemory(base+cursorxoffset,"Dwarf Fortress")
+    cursory := ReadMemory(base+cursoryoffset,"Dwarf Fortress")
+    mousex := ReadMemory(base+mousexoffset,"Dwarf Fortress")
+	mousey := ReadMemory(base+mouseyoffset,"Dwarf Fortress")
+    mousex := ((mousex + windowx) - 1)
+	mousey := ((mousey + windowy) - 1)
+    if ((cursorx = mousex) and (cursory = mousey))
+        return 1
+    else
+        return 0
+}
